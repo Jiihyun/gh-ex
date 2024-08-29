@@ -9,47 +9,47 @@ on:
 
 # job, step의 이름은 마음대로 정해도 됨
 jobs:
-  build_and_test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout to the main branch
-        uses: actions/checkout@v4
-
-      - name: setup java
-        uses: actions/setup-java@v4
-        with:
-          distribution: "temurin"
-          java-version: "17"
-
-      - name: setup gradle
-        uses: gradle/actions/setup-gradle@v4
-
-      - name:
-        run: echo "Hello!!!!!!!!!!!!!!!!!!!"
-
-      - name: build artifact
-        run: ./gradlew build -x test -Dspring.profiles.action=prod
-
-      - name: test
-        run: ./gradlew test
-
-      - name:
-        run: echo "DONE!!!!!"
-
-      - name: upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          path: 'build/libs/*.jar'
-          name: 'app.jar'
-
-  ex:
-    runs-on: ubuntu-latest
-    steps:
-      - name: another jobjob
-        run: echo "JOBJOB"
+#  build_and_test:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: checkout to the main branch
+#        uses: actions/checkout@v4
+#
+#      - name: setup java
+#        uses: actions/setup-java@v4
+#        with:
+#          distribution: "temurin"
+#          java-version: "17"
+#
+#      - name: setup gradle
+#        uses: gradle/actions/setup-gradle@v4
+#
+#      - name:
+#        run: echo "Hello!!!!!!!!!!!!!!!!!!!"
+#
+#      - name: build artifact
+#        run: ./gradlew build -x test -Dspring.profiles.action=prod
+#
+#      - name: test
+#        run: ./gradlew test
+#
+#      - name:
+#        run: echo "DONE!!!!!"
+#
+#      - name: upload artifact
+#        uses: actions/upload-artifact@v4
+#        with:
+#          path: 'build/libs/*.jar'
+#          name: 'app.jar'
+#
+#  ex:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: another jobjob
+#        run: echo "JOBJOB"
 
   deploy:
-    needs: build_and_test
+#    needs: build_and_test
     runs-on: ubuntu-latest
 
     steps:
@@ -65,7 +65,9 @@ jobs:
           aws-access-key-id : ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-2
+      - name: create dummy jar
+        run: echo "dummy!!!!!" > dummy.jar
 
       - name: upload to s3
         run: |
-          aws s3 cp build/libs/app.jar s3://xxxxx-artifact-bucket-30/artifacts/app.jar
+          aws s3 cp dummy.jar s3://xxxxx-artifact-bucket-30/artifacts/app.jar
