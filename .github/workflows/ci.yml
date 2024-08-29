@@ -42,6 +42,12 @@ jobs:
           path: 'build/libs/*.jar'
           name: 'app.jar'
 
+  ex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: another jobjob
+        run: echo "JOBJOB"
+
   deploy:
     needs: build_and_test
     runs-on: ubuntu-latest
