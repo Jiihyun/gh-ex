@@ -35,3 +35,17 @@ jobs:
 
       - name:
         run: echo "DONE!!!!!"
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          path: 'build/libs/*.jar'
+          name: 'app.jar'
+
+  deploy:
+    needs: build_and_test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: another job
+        run: echo "ANOTHER JOB"
