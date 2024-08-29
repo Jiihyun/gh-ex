@@ -1,0 +1,35 @@
+name: CI Pipeline
+
+on:
+  push: main
+
+# Workflow -> Job -> Steps
+
+# job, step의 이름은 마음대로 정해도 됨
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout to the main branch
+        uses: actions/checkout@v4
+
+      - name: setup java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: setup gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name:
+        run: echo "Hello!!!!!!!!!!!!!!!!!!!"
+
+      - name: build artifact
+        run: ./gradlew build -x test -Dspring.profiles.action=prod
+
+      - name: test
+        run: ./gradlew test
+
+      - name:
+        run: echo "DONE!!!!!"
