@@ -70,4 +70,4 @@ jobs:
 
       - name: upload to s3
         run: |
-          aws s3 cp dummy.jar s3://xxxxx-artifact-bucket-30/artifacts/app.jar
+          aws s3 cp dummy.jar s3://xxxxx-artifact-bucket-30/artifacts/dummy.jar
